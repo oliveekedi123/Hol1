@@ -20,12 +20,15 @@ pipeline {
                 
             }
         }
-        stage('deploy') {
-            steps {
-                echo 'Hello test'
-                
-            }
-        }
+        stage('build and publish image') {
+      steps {
+        script {
+          checkout scm
+          docker.withRegistry('', 'dockerUserID') {
+          def customImage = docker.build("olive123/hol-pipeline:${env.BUILD_ID}")
+          customImage.push()    
+          }
+    }
         
     }
 }
