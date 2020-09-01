@@ -30,9 +30,10 @@ pipeline {
         script {
           checkout scm
           docker.withRegistry('', 'DockerRegistryID') {
-          def customImage = docker.build("olive123/hol-pipeline:${env.BUILD_ID}")         def customImage = docker.build("olive123/hol-pipeline")
-	  customImage.push() 
-	  customImage1.push()
+          def customImage = docker.build("olive123/hol-pipeline:${env.BUILD_ID}")         
+          def customImage1 = docker.build("olive123/hol-pipeline")
+	      customImage.push() 
+	      customImage1.push()
           }
     }
         
